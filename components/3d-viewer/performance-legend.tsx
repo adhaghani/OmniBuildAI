@@ -2,8 +2,8 @@ import { Card, CardContent } from '@/components/ui/card';
 
 export function PerformanceLegend() {
   return (
-    <Card className="absolute top-4 left-1/2 -translate-x-1/2 w-auto">
-      <CardContent className="p-4">
+    <Card className="absolute top-4 left-4  w-auto">
+      <CardContent>
         <h3 className="mb-3 text-sm font-semibold">Performance Legend</h3>
         <div className="flex gap-6">
           <div className="flex items-center gap-2">

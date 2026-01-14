@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import { Search, Bell, User2, LogOut, Settings, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Select, SelectItem, SelectValue, SelectContent, SelectTrigger } from '../ui/select';
+import { SidebarTrigger } from './ui/sidebar';
+import { Select, SelectItem, SelectValue, SelectContent, SelectTrigger } from '@/components/ui/select';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 import {
   CommandDialog,
   CommandEmpty,
@@ -31,7 +32,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from 'next/link';
 import { SUPPORTED_STANDARDS } from '@/config/constants';
 
-export function DashboardHeader() {
+export function SiteHeader() {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
@@ -49,9 +50,13 @@ export function DashboardHeader() {
 
 
   return (
-    <header className="flex h-16 items-center justify-between border-b bg-white px-6">
+    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+      
+      <div className="flex w-full justify-between items-center gap-1 lg:gap-2 lg:px-6">
+
       {/* Search */}
-      <div className="relative w-full max-w-md">
+      <div className="flex items-center gap-2 relative w-full max-w-md">
+      <SidebarTrigger className=" mr-2" />
       <InputGroup>
         <InputGroupInput onClick={() => setOpen(true)} placeholder="Search for materials, standards, credits..." />
         <InputGroupAddon>
@@ -165,6 +170,7 @@ export function DashboardHeader() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
+      </div>
       </div>
     </header>
   );

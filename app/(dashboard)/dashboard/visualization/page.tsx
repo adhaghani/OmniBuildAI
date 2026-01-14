@@ -28,12 +28,12 @@ export default function ThreeDVisualizationPage() {
   return (
     <div className="flex h-full flex-col">
       {/* Page Header */}
-      <div className="border-b bg-white p-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <div className="border-b px-6 py-2">
+        <div className="flex gap-2 items-center justify-between">
+          <div className="flex items-center gap-2">
             <div>
-              <h1 className="text-3xl font-bold">3D Green Heatmap</h1>
-              <p className="mt-1 text-muted-foreground">
+              <h1 className="text-xl font-bold">3D Green Heatmap</h1>
+              <p className="text-sm text-muted-foreground">
                 Interactive visualization with material tagging and performance overlays
               </p>
             </div>

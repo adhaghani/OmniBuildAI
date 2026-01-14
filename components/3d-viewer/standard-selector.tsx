@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-
+import { Button } from '../ui/button';
 export interface Standard {
   id: string;
   name: string;
@@ -32,11 +32,11 @@ export function StandardSelector({ onStandardChange }: StandardSelectorProps) {
       {standards.map((standard) => {
         const isActive = activeStandard.id === standard.id;
         return (
-          <button
+          <Button
             key={standard.id}
             onClick={() => handleStandardChange(standard)}
             className={cn(
-              'flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all',
+             
               isActive
                 ? 'bg-emerald-600 text-white shadow-md'
                 : 'bg-white text-gray-700 hover:bg-gray-50 border'
@@ -50,16 +50,16 @@ export function StandardSelector({ onStandardChange }: StandardSelectorProps) {
             )}>
               {standard.score}%
             </span>
-          </button>
+          </Button>
         );
       })}
       
       {/* Compare button */}
-      <button className="flex h-10 w-10 items-center justify-center rounded-lg border bg-white hover:bg-gray-50 transition-colors">
+      <Button variant={"outline"} size={"icon"}>
         <svg className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
         </svg>
-      </button>
+      </Button>
     </div>
   );
 }
