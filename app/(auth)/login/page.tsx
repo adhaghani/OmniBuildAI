@@ -71,7 +71,7 @@ export default function LoginPage() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <Link href="/auth/forgot-password" className="text-sm text-emerald-600 hover:text-emerald-700">
+                <Link href="/forgot-password" className="text-sm text-emerald-600 hover:text-emerald-700">
                   Forgot password?
                 </Link>
               </div>
@@ -136,7 +136,7 @@ export default function LoginPage() {
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-sm text-center text-muted-foreground">
             Don't have an account?{' '}
-            <Link href="/auth/signup" className="text-emerald-600 hover:text-emerald-700 font-medium">
+            <Link href="/signup" className="text-emerald-600 hover:text-emerald-700 font-medium">
               Sign up
             </Link>
           </div>

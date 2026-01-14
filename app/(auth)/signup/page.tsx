@@ -219,7 +219,7 @@ export default function SignupPage() {
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-sm text-center text-muted-foreground">
             Already have an account?{' '}
-            <Link href="/auth/login" className="text-emerald-600 hover:text-emerald-700 font-medium">
+            <Link href="/login" className="text-emerald-600 hover:text-emerald-700 font-medium">
               Sign in
             </Link>
           </div>
