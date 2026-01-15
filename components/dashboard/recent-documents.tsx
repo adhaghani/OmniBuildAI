@@ -1,7 +1,10 @@
-import { FileText, Loader2, CheckCircle2, Clock } from 'lucide-react';
+import { FileText, Loader2, CheckCircle2, Clock, File } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-
+import Link from 'next/link';
+import { Button } from '../ui/button';
+import { Tooltip, TooltipContent } from '../ui/tooltip';
+import { TooltipTrigger } from '@radix-ui/react-tooltip';
 interface Document {
   id: string;
   name: string;
@@ -93,9 +96,25 @@ export function RecentDocuments() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center justify-between gap-2">
+            <div className='flex items-center gap-2'>
           <FileText className="h-5 w-5 text-emerald-600" />
           Recent Documents
+          </div>
+          <div>
+            <Tooltip>
+                <TooltipTrigger asChild>
+            <Button asChild size={"sm"} variant={"ghost"}>
+            <Link href={"#"}>
+            <File className="h-4 w-4" />
+            </Link>
+            </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                View All Documents
+            </TooltipContent>
+            </Tooltip>
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent>

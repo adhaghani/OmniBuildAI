@@ -37,9 +37,12 @@ export default function ThreeDVisualizationPage() {
                 Interactive visualization with material tagging and performance overlays
               </p>
             </div>
-            <ModelSelector onModelSelect={handleModelSelect} />
+            
           </div>
+          <div className='flex items-center gap-2'>
+        <ModelSelector onModelSelect={handleModelSelect} />
           <StandardSelector />
+          </div>
         </div>
       </div>
 

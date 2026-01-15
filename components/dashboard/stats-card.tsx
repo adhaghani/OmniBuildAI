@@ -14,7 +14,7 @@ interface StatsCardProps {
 export function StatsCard({ title, value, subtitle, icon, iconBgColor, subtitleColor }: StatsCardProps) {
   return (
     <Card>
-      <CardContent className="p-6">
+      <CardContent>
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <p className="text-sm font-medium text-muted-foreground">{title}</p>
