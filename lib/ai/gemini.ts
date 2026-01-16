@@ -1,26 +1,39 @@
-import { VertexAI } from '@google-cloud/vertexai';
+import OpenAI from 'openai';
 
-// Initialize Vertex AI
-// Note: Requires GOOGLE_APPLICATION_CREDENTIALS or GCLOUD_PROJECT env vars
-const project = process.env.GCLOUD_PROJECT || 'omnibuild-ai';
-const location = 'us-central1';
-
-const vertexAI = new VertexAI({ project, location });
-
-export const geminiModel = vertexAI.getGenerativeModel({
-  model: 'gemini-1.5-pro-preview-0409',
-  generationConfig: {
-    maxOutputTokens: 2048,
-    temperature: 0.2,
-    topP: 0.8,
-    topK: 40,
-  },
+// Initialize OpenAI client for DeepSeek V3.2
+// DeepSeek uses OpenAI-compatible API
+const openai = new OpenAI({
+  apiKey: process.env.DEEPSEEK_API_KEY,
+  baseURL: 'https://api.deepseek.com',
 });
 
-export const geminiFlashModel = vertexAI.getGenerativeModel({
-  model: 'gemini-1.5-flash-preview-0514', // Faster, cheaper for simple tasks
-  generationConfig: {
-    maxOutputTokens: 1024,
+export const deepseekModel = openai;
+
+// Main model for complex tasks (DeepSeek V3.2)
+export const generateContent = async (prompt: string, options?: {
+  maxTokens?: number;
+  temperature?: number;
+}) => {
+  const response = await openai.chat.completions.create({
+    model: 'deepseek-chat',
+    messages: [
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ],
+    max_tokens: options?.maxTokens || 2048,
+    temperature: options?.temperature || 0.2,
+    top_p: 0.8,
+  });
+
+  return response.choices[0].message.content || '';
+};
+
+// Fast model for simpler tasks (DeepSeek V3.2 with lower temperature)
+export const generateContentFast = async (prompt: string) => {
+  return generateContent(prompt, {
+    maxTokens: 1024,
     temperature: 0.1,
-  },
-});
+  });
+};

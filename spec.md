@@ -2,7 +2,7 @@ Overview
 Background
 The Dual-Carbon Imperative and the Construction Crisis The global built environment stands at a critical juncture. As the international community accelerates toward the "Double Carbon" goals (China’s commitment to peak carbon by 2030 and achieve carbon neutrality by 2060), the construction industry remains a significant bottleneck. Currently, the sector is responsible for 39% of global energy-related carbon emissions—split between Operational Carbon (energy used to heat, cool, and power buildings) and Embodied Carbon (emissions from material manufacturing and transport).
 In the China-ASEAN region—the world's most active construction corridor—rapid urbanization threatens to lock in high-carbon infrastructure for decades. While regulatory frameworks exist, such as China’s Green Building Label (GBL), Malaysia’s Green Building Index (GBI), and international standards like LEED and BREEAM, the implementation gap is severe. Compliance is currently a manual, labor-intensive process governed by expensive consultants and fragmented spreadsheets.
-The "AI Plus" Opportunity This project aligns directly with the 2025 "AI Plus" Initiative, which mandates the deep integration of artificial intelligence into traditional industries. OmniBuild AI was conceived to serve as the digital infrastructure for the next generation of carbon-neutral cities. It leverages the Gemini 1.5 Pro Large Language Model (LLM) to automate the administrative burden of green certification, effectively democratizing access to sustainability. By treating green building codes not as static PDFs but as a queryable, intelligent knowledge base, OmniBuild AI bridges the gap between complex regulatory requirements and on-site execution.
+The "AI Plus" Opportunity This project aligns directly with the 2025 "AI Plus" Initiative, which mandates the deep integration of artificial intelligence into traditional industries. OmniBuild AI was conceived to serve as the digital infrastructure for the next generation of carbon-neutral cities. It leverages the DeepSeek V3.2 Large Language Model (LLM) to automate the administrative burden of green certification, effectively democratizing access to sustainability. By treating green building codes not as static PDFs but as a queryable, intelligent knowledge base, OmniBuild AI bridges the gap between complex regulatory requirements and on-site execution.
 
 
 
@@ -12,7 +12,7 @@ Speed: Manual auditing cannot keep pace with the China-ASEAN construction speed.
 Accuracy: Human error in carbon calculation leads to "performance gaps" where certified buildings underperform in reality.
 Standardization: Cross-border investment requires a "Rosetta Stone" to translate China’s GBL standards into ASEAN equivalents, facilitating green finance flows.
 Core Advantages
-1. Multimodal Intelligence (Gemini 1.5 Pro) Unlike traditional construction software that relies on rigid, structured databases, OmniBuild AI utilizes the massive 1-million+ token context window of Gemini 1.5 Pro. This allows the system to ingest and reason across "messy" unstructured data simultaneously:
+1. Multimodal Intelligence (DeepSeek V3.2) Unlike traditional construction software that relies on rigid, structured databases, OmniBuild AI utilizes the massive 1-million+ token context window of DeepSeek V3.2. This allows the system to ingest and reason across "messy" unstructured data simultaneously:
 Text: 1,000-page regulatory PDF manuals (LEED v4, GBL 2019).
 Visuals: 2D scanned site drawings and material invoices.
 3D Data: Industry Foundation Classes (IFC) from BIM models. This multimodal capability is a distinct competitive advantage, allowing us to process a project's entire documentation suite in a single "inference pass" without manual data entry.
@@ -38,7 +38,7 @@ OmniBuild AI is architected as a Cloud-Native, AI-First SaaS Platform.
 Architecture Overview:
 Presentation Layer (Frontend): Built on Next.js 15+, providing a responsive, server-side rendered dashboard accessible via any standard web browser (Chrome/Edge).
 Visualization Layer (3D Engine): We utilize IFC.js and Three.js to render standard BIM (Building Information Modeling) files directly in the browser. This parses the heavy .ifc geometry data client-side to ensure low latency.
-Reasoning Layer (The AI Core): The backend connects to Gemini 1.5 Pro via Google Cloud Vertex AI. We utilize a RAG (Retrieval-Augmented Generation) pipeline:
+Reasoning Layer (The AI Core): The backend connects to DeepSeek V3.2 via Google Cloud Vertex AI. We utilize a RAG (Retrieval-Augmented Generation) pipeline:
 Knowledge Base: Vectorized databases of GBL, GBI, LEED, and BREEAM manuals.
 Project Context: User-uploaded PDFs (Bills of Quantities, Material Specs) and JSON extracts from the BIM model.
 Data Layer: A PostgreSQL database stores project metadata, while unstructured files are stored in secure Object Storage buckets.
@@ -47,7 +47,7 @@ Data Layer: A PostgreSQL database stores project metadata, while unstructured fi
 
 Technical Pathway:
 Step 1: Ingestion. The user uploads a BIM model (.ifc) and a folder of material PDFs.
-Step 2: Parsing. Gemini 1.5 Pro extracts key entities (Material Names, Thermal Conductivity, GWP, Recycled Content) from the PDFs. Simultaneously, the 3D engine extracts spatial data (Window-to-Wall Ratio, Room Areas).
+Step 2: Parsing. DeepSeek V3.2 extracts key entities (Material Names, Thermal Conductivity, GWP, Recycled Content) from the PDFs. Simultaneously, the 3D engine extracts spatial data (Window-to-Wall Ratio, Room Areas).
 Step 3: Synthesis. The AI maps the extracted data against the selected certification criteria (e.g., GBL "3-Star").
 Step 4: Output. The system generates a Scorecard, a list of Missing Documents, and a 3D visualization of problem areas.
 Core Function
@@ -72,7 +72,7 @@ Action: They upload the rough block model. OmniBuild AI analyzes the solar orien
 Benefit: Carbon reduction is "baked in" from day one, preventing costly redesigns later.
 Scenario B: Procurement & Construction (Contractors)
 Context: A contractor in Kuala Lumpur receives a delivery of insulation panels.
-Action: They snap a photo of the product label using a mobile device. Gemini 1.5 Pro performs OCR, retrieves the product's environmental data, and verifies it matches the sustainable design spec.
+Action: They snap a photo of the product label using a mobile device. DeepSeek V3.2 performs OCR, retrieves the product's environmental data, and verifies it matches the sustainable design spec.
 Benefit: Prevents "Greenwashing" or accidental substitution of inferior materials.
 
 
@@ -123,7 +123,7 @@ Enterprise Tier: Custom integration for large developers and government departme
 Project Investment Plan
 Total Budget: 400,000 RMB
 Phase 1: R&D and Integration (150,000 RMB)
-API Costs (Gemini 1.5 Pro/Flash): 50,000 RMB.
+API Costs (DeepSeek V3.2/Flash): 50,000 RMB.
 Development (Next.js/IFC.js Engineers): 80,000 RMB.
 Cloud Infrastructure (Google Cloud/AWS): 20,000 RMB.
 Phase 2: Pilot Testing (100,000 RMB)

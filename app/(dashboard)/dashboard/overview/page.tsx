@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { TrendingUp, CheckCircle, Clock, AlertTriangle, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { StatsCard } from '@/components/dashboard/stats-card';
@@ -5,8 +8,16 @@ import { DocumentUpload } from '@/components/dashboard/document-upload';
 import { RecentDocuments } from '@/components/dashboard/recent-documents';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ButtonGroup } from '@/components/ui/button-group';
+import FullAuditDialog from '@/components/overview/fullAuditDialog';
 
 const page = () => {
+  const [isAuditDialogOpen, setIsAuditDialogOpen] = useState(false);
+
+  const handleRunAudit = () => {
+    // TODO: Implement actual audit logic
+    console.log('Starting full audit...');
+    // You can add your audit logic here
+  };
   return (
         <div className="p-6 space-y-6">
       {/* Page Header */}
@@ -35,11 +46,17 @@ const page = () => {
             </svg>
             Export Report
                 </Button>
-                <Button size={"sm"} className="gap-2 bg-emerald-600 hover:bg-emerald-700">
+                <Button onClick={() => setIsAuditDialogOpen(true)} size={"sm"} className="gap-2">
             <Zap className="h-4 w-4" />
             Run Full Audit
                 </Button>
           </ButtonGroup>
+                <FullAuditDialog 
+        open={isAuditDialogOpen}
+        onOpenChange={setIsAuditDialogOpen}
+        onConfirm={handleRunAudit}
+         
+              />
         </div>
       </div>
 
@@ -49,33 +66,33 @@ const page = () => {
           title="Compliance Score"
           value="76%"
           subtitle="+12%"
-          icon={<TrendingUp className="h-5 w-5 text-emerald-600" />}
-          iconBgColor="bg-emerald-50 dark:bg-emerald-900"
-          subtitleColor="text-emerald-600 font-semibold"
+          icon={<TrendingUp className="h-5 w-5 text-primary" />}
+          iconBgColor="bg-primary/10"
+          subtitleColor="text-primary font-semibold"
         />
         <StatsCard
           title="Credits Achieved"
           value="42/55"
           subtitle="Silver Status"
-          icon={<CheckCircle className="h-5 w-5 text-emerald-600" />}
-          iconBgColor="bg-emerald-50 dark:bg-emerald-900"
-          subtitleColor="text-emerald-600 font-semibold"
+          icon={<CheckCircle className="h-5 w-5 text-primary" />}
+          iconBgColor="bg-primary/10"
+          subtitleColor="text-primary font-semibold"
         />
         <StatsCard
           title="Pending Items"
           value="8"
           subtitle="Documents Needed"
-          icon={<Clock className="h-5 w-5 text-orange-600" />}
-          iconBgColor="bg-orange-50 dark:bg-orange-900"
-          subtitleColor="text-orange-600 font-semibold"
+          icon={<Clock className="h-5 w-5 text-secondary" />}
+          iconBgColor="bg-secondary/10"
+          subtitleColor="text-secondary font-semibold"
         />
         <StatsCard
           title="Issues Found"
           value="3"
           subtitle="Requires Action"
-          icon={<AlertTriangle className="h-5 w-5 text-red-600" />}
-          iconBgColor="bg-red-50 dark:bg-red-900"
-          subtitleColor="text-red-600 font-semibold"
+          icon={<AlertTriangle className="h-5 w-5 text-destructive" />}
+          iconBgColor="bg-destructive/10"
+          subtitleColor="text-destructive font-semibold"
         />
       </div>
 
@@ -96,7 +113,7 @@ const page = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-emerald-600" />
+            <Zap className="h-5 w-5 text-primary" />
             AI Processing Pipeline
           </CardTitle>
         </CardHeader>
@@ -106,7 +123,7 @@ const page = () => {
             <div className="grid gap-4 md:grid-cols-4">
               <div className="relative">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-900">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <CheckCircle className="h-5 w-5" />
                   </div>
                   <div>
@@ -118,8 +135,8 @@ const page = () => {
 
               <div className="relative">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900">
-                    <div className="h-2 w-2 animate-pulse rounded-full bg-blue-600"></div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10 text-secondary">
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-secondary"></div>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Material Extract</p>
@@ -156,15 +173,15 @@ const page = () => {
             </div>
 
             {/* Processing Info */}
-            <div className="mt-4 rounded-lg bg-blue-50 p-4 dark:bg-blue-950">
+            <div className="mt-4 rounded-lg bg-secondary/10 p-4">
               <div className="flex items-start gap-3">
-                <Zap className="h-5 w-5 text-blue-600 mt-0.5" />
+                <Zap className="h-5 w-5 text-secondary mt-0.5" />
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                  <p className="text-sm font-medium text-foreground">
                     AI Analysis in Progress
                   </p>
-                  <p className="mt-1 text-xs text-blue-700 dark:text-blue-300">
-                    Gemini 1.5 Pro is analyzing HVAC_Specifications.pdf against GBL standards. 
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    DeepSeek V3.2 is analyzing HVAC_Specifications.pdf against GBL standards. 
                     Estimated completion: 2 minutes
                   </p>
                 </div>

@@ -52,7 +52,7 @@ export default function SignupPage() {
         <CardHeader className="space-y-1 text-center">
           <div className="flex justify-center mb-4">
             <Link href="/" className="flex items-center gap-2">
-              <Building2 className="h-8 w-8 text-emerald-600" />
+              <Building2 className="h-8 w-8 text-primary" />
               <span className="text-2xl font-bold">OmniBuild AI</span>
             </Link>
           </div>
@@ -219,7 +219,7 @@ export default function SignupPage() {
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-sm text-center text-muted-foreground">
             Already have an account?{' '}
-            <Link href="/login" className="text-emerald-600 hover:text-emerald-700 font-medium">
+            <Link href="/login" className="text-primary hover:text-primary/80 font-medium">
               Sign in
             </Link>
           </div>

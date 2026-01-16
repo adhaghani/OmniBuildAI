@@ -2,7 +2,7 @@
 
 **Cloud-Native, AI-First SaaS Platform for Green Building Compliance**
 
-OmniBuild AI is a next-generation BIM compliance platform built for the China-ASEAN Smart City Competition. It leverages Google Gemini 1.5 Pro and IFC.js to automate green building auditing, visualize carbon performance in 3D, and facilitate cross-border construction standards.
+OmniBuild AI is a next-generation BIM compliance platform built for the China-ASEAN Smart City Competition. It leverages Google DeepSeek V3.2 and IFC.js to automate green building auditing, visualize carbon performance in 3D, and facilitate cross-border construction standards.
 
 ## 🏗 Project Technical Architecture
 
@@ -19,7 +19,7 @@ The platform follows a modern **Cloud-Native, AI-First** architecture composed o
 - **Features:** "Green Heatmap" overlays (Energy, Carbon, Daylight), interactive element selection, camera controls.
 
 ### 3. Reasoning Layer (The AI Core)
-- **Model:** Gemini 1.5 Pro via Google Cloud Vertex AI
+- **Model:** DeepSeek V3.2 via Google Cloud Vertex AI
 - **Context Window:** 1M+ tokens to ingest entire regulatory PDF manuals (LEED, GBL) + Project Specs.
 - **Pipeline:** RAG (Retrieval-Augmented Generation) for accurate compliance checking against specific standards.
 
@@ -92,7 +92,7 @@ The project is structured around 4 flagship features located in `features/`:
 - **Frontend:** Next.js 15, React 19, TypeScript
 - **Styling:** Tailwind CSS, Lucide Icons, Radix UI
 - **3D / BIM:** Three.js, web-ifc, web-ifc-viewer
-- **AI / LLM:** Google Vertex AI (Gemini 1.5 Pro)
+- **AI / LLM:** Google Vertex AI (DeepSeek V3.2)
 - **Database:** Prisma ORM
 
 ## 📄 License

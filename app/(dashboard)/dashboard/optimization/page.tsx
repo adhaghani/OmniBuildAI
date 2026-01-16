@@ -37,10 +37,10 @@ interface MessageType {
 }
 
 const suggestedQueries = [
-  { icon: Zap, text: "How to reach Gold status?", color: "text-yellow-500" },
-  { icon: Droplets, text: "Improve water efficiency score", color: "text-blue-500" },
-  { icon: Leaf, text: "Reduce embodied carbon", color: "text-green-500" },
-  { icon: Zap, text: "Fix energy efficiency issues", color: "text-orange-500" },
+  { icon: Zap, text: "How to reach Gold status?", color: "text-primary" },
+  { icon: Droplets, text: "Improve water efficiency score", color: "text-secondary" },
+  { icon: Leaf, text: "Reduce embodied carbon", color: "text-primary" },
+  { icon: Zap, text: "Fix energy efficiency issues", color: "text-secondary" },
 ];
 
 const quickResources = [
@@ -54,7 +54,7 @@ export default function OptimizationPage() {
     {
       id: "1",
       role: "assistant",
-      content: `Hello! I'm your **Intelligent Optimization Assistant** powered by Gemini 1.5 Pro. I've analyzed your project "Nanning Office Tower" and identified several opportunities to improve your GBL 3-Star certification score.
+      content: `Hello! I'm your **Intelligent Optimization Assistant** powered by DeepSeek V3.2. I've analyzed your project "Nanning Office Tower" and identified several opportunities to improve your GBL 3-Star certification score.
 
 **Current Status:**
 - Overall Score: **76%** (Silver)
@@ -200,7 +200,7 @@ What specific aspect would you like to explore further?`;
   };
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] gap-4 p-4">
+    <div className="flex h-fit gap-4 p-4">
       {/* Main Chat Area */}
       <div className="flex flex-1 flex-col">
         <Card className="flex flex-1 flex-col overflow-hidden">
@@ -213,7 +213,7 @@ What specific aspect would you like to explore further?`;
               <div className="flex-1">
                 <CardTitle className="text-xl">Intelligent Optimization Assistant</CardTitle>
                 <Badge variant="outline" className="mt-1">
-                  Gemini 1.5 Pro
+                  Deepseek V3.2
                 </Badge>
               </div>
             </div>
@@ -358,7 +358,7 @@ What specific aspect would you like to explore further?`;
             <Separator />
             <div>
               <p className="text-muted-foreground text-xs">Gap to Gold</p>
-              <p className="font-semibold text-orange-500 text-sm">6 credits</p>
+              <p className="font-semibold text-secondary text-sm">6 credits</p>
             </div>
           </CardContent>
         </Card>

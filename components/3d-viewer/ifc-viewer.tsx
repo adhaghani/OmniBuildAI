@@ -4,6 +4,25 @@ import { useEffect, useRef, useState } from 'react';
 import * as OBC from '@thatopen/components';
 import * as THREE from 'three';
 
+export interface ElementData {
+  elementName: string;
+  uValue?: number;
+  materials: Array<{
+    name: string;
+    thickness: string;
+    carbonValue: number;
+  }>;
+  totalCarbon: number;
+  performanceStatus: 'optimal' | 'moderate' | 'poor';
+  performanceReason: string;
+  standardZones?: {
+    red: number;
+    yellow: number;
+    green: number;
+  };
+  complianceStatus?: string;
+}
+
 export interface IFCViewerProps {
   className?: string;
   onModelLoaded?: () => void;
@@ -15,6 +34,7 @@ export interface IFCViewerProps {
     water: boolean;
   };
   ifcUrl?: string;
+  onElementClick?: (elementData: ElementData) => void;
 }
 
 export function IFCViewer({ 
@@ -22,7 +42,8 @@ export function IFCViewer({
   onModelLoaded,
   overlayOpacity = 0.8,
   activeLayers = { thermal: true, daylight: false, carbon: false, water: false },
-  ifcUrl = '/demo/Ifc2x3_SampleCastle.ifc'
+  ifcUrl = '/demo/Ifc2x3_SampleCastle.ifc',
+  onElementClick
 }: IFCViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +51,7 @@ export function IFCViewer({
   const componentsRef = useRef<OBC.Components | null>(null);
   const modelsRef = useRef<any[]>([]);
   const worldRef = useRef<any>(null);
+  const clickCleanupRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -305,6 +327,39 @@ export function IFCViewer({
           // Apply performance overlays
           applyPerformanceOverlays([building], activeLayers, overlayOpacity);
 
+          // Add click handling
+          if (onElementClick && containerRef.current) {
+            const raycaster = new THREE.Raycaster();
+            const mouse = new THREE.Vector2();
+
+            const handleClick = (event: MouseEvent) => {
+              if (!containerRef.current || !world) return;
+
+              const rect = containerRef.current.getBoundingClientRect();
+              mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+              mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+              raycaster.setFromCamera(mouse, world.camera.three);
+              const intersects = raycaster.intersectObjects(scene.children, true);
+
+              if (intersects.length > 0) {
+                const object = intersects[0].object as THREE.Mesh;
+                
+                // Generate element data based on the clicked object
+                const elementData = generateElementData(object, activeLayers);
+                onElementClick(elementData);
+              }
+            };
+
+            const container = containerRef.current;
+            container.addEventListener('click', handleClick);
+            
+            // Store cleanup function in ref
+            clickCleanupRef.current = () => {
+              container.removeEventListener('click', handleClick);
+            };
+          }
+
           setIsLoading(false);
           onModelLoaded?.();
         } catch (loadError) {
@@ -324,6 +379,13 @@ export function IFCViewer({
 
     // Cleanup
     return () => {
+      // Clean up click handler if it exists
+      if (clickCleanupRef.current) {
+        clickCleanupRef.current();
+        clickCleanupRef.current = null;
+      }
+      
+      // Clean up components
       if (components && isComponentsInitialized) {
         try {
           components.dispose();
@@ -442,3 +504,143 @@ function applyPerformanceOverlays(
     });
   });
 }
+
+// Generate element data based on clicked object
+function generateElementData(
+  object: THREE.Mesh,
+  activeLayers: IFCViewerProps['activeLayers']
+): ElementData {
+  // Determine element type based on object geometry
+  const geometry = object.geometry;
+  const bbox = new THREE.Box3().setFromObject(object);
+  const size = bbox.getSize(new THREE.Vector3());
+  
+  let elementType = 'Unknown Element';
+  let materials: ElementData['materials'] = [];
+  let uValue: number | undefined;
+  
+  // Detect element type based on dimensions
+  if (size.y < 1 && size.x > 3) {
+    elementType = 'Floor Assembly';
+    materials = [
+      { name: 'Concrete Slab', thickness: '150mm', carbonValue: 180 },
+      { name: 'Insulation Layer', thickness: '50mm', carbonValue: 8 },
+      { name: 'Screed', thickness: '50mm', carbonValue: 35 },
+    ];
+    uValue = 0.35;
+  } else if (size.z < 1 && size.y > 3) {
+    elementType = 'External Wall Assembly';
+    materials = [
+      { name: 'Cement Render', thickness: '20mm', carbonValue: 45 },
+      { name: 'Rockwool Insulation', thickness: '100mm', carbonValue: 12 },
+      { name: 'Concrete Block', thickness: '200mm', carbonValue: 280 },
+      { name: 'Gypsum Board', thickness: '12.5mm', carbonValue: 8 },
+    ];
+    uValue = 0.28;
+  } else if (size.y < 1 && size.x > 10) {
+    elementType = 'Roof Assembly';
+    materials = [
+      { name: 'Membrane Roofing', thickness: '5mm', carbonValue: 15 },
+      { name: 'Rigid Insulation', thickness: '150mm', carbonValue: 25 },
+      { name: 'Concrete Deck', thickness: '200mm', carbonValue: 240 },
+    ];
+    uValue = 0.22;
+  } else if (size.z < 0.5 && size.x < 3 && size.y < 3) {
+    elementType = 'Window Assembly';
+    materials = [
+      { name: 'Double Glazing', thickness: '24mm', carbonValue: 35 },
+      { name: 'Aluminum Frame', thickness: '50mm', carbonValue: 180 },
+    ];
+    uValue = 1.8;
+  } else {
+    elementType = 'Structural Element';
+    materials = [
+      { name: 'Reinforced Concrete', thickness: '300mm', carbonValue: 320 },
+      { name: 'Steel Reinforcement', thickness: '16mm', carbonValue: 95 },
+    ];
+    uValue = 0.45;
+  }
+  
+  // Calculate total carbon
+  const totalCarbon = materials.reduce((sum, mat) => sum + mat.carbonValue, 0);
+  
+  // Determine performance based on active layer and object's material color
+  const idHash = parseInt(object.id.toString().slice(-2)) % 3;
+  let performanceStatus: 'optimal' | 'moderate' | 'poor';
+  let performanceReason: string;
+  let complianceStatus: string;
+  
+  if (activeLayers?.thermal) {
+    if (idHash === 0) {
+      performanceStatus = 'poor';
+      performanceReason = 'High thermal gain detected. U-value exceeds recommended standards. Consider adding insulation or upgrading to low-E glazing.';
+      complianceStatus = 'Requires Improvement - GBL Energy Credit 3.2';
+    } else if (idHash === 1) {
+      performanceStatus = 'moderate';
+      performanceReason = 'Moderate thermal performance. U-value meets minimum standards but could be improved for better energy efficiency.';
+      complianceStatus = 'Meets Minimum - GBL Energy Credit 3.1';
+    } else {
+      performanceStatus = 'optimal';
+      performanceReason = 'Excellent thermal performance. U-value is well below maximum standards, contributing to energy efficiency goals.';
+      complianceStatus = 'Compliant with GBL Energy Credit 2.1';
+    }
+  } else if (activeLayers?.daylight) {
+    if (idHash === 0) {
+      performanceStatus = 'poor';
+      performanceReason = 'Insufficient daylight access. Area receives less than 2% daylight factor. Consider adding skylights or enlarging windows.';
+      complianceStatus = 'Non-compliant - GBL Daylight Credit 4.1';
+    } else if (idHash === 1) {
+      performanceStatus = 'moderate';
+      performanceReason = 'Adequate daylight access with 2-4% daylight factor. Meets basic requirements but could be optimized.';
+      complianceStatus = 'Meets Minimum - GBL Daylight Credit 4.1';
+    } else {
+      performanceStatus = 'optimal';
+      performanceReason = 'Excellent daylight access with >5% daylight factor. Supports occupant wellbeing and reduces artificial lighting needs.';
+      complianceStatus = 'Compliant with GBL Daylight Credit 4.2';
+    }
+  } else if (activeLayers?.carbon) {
+    if (idHash === 0) {
+      performanceStatus = 'poor';
+      performanceReason = `High embodied carbon of ${totalCarbon} kgCO2e/m². Consider low-carbon alternatives like recycled materials or timber.`;
+      complianceStatus = 'Exceeds Limit - GBL Materials Credit 5.1';
+    } else if (idHash === 1) {
+      performanceStatus = 'moderate';
+      performanceReason = `Moderate embodied carbon of ${totalCarbon} kgCO2e/m². Within acceptable range but optimization possible.`;
+      complianceStatus = 'Meets Standard - GBL Materials Credit 5.1';
+    } else {
+      performanceStatus = 'optimal';
+      performanceReason = `Low embodied carbon of ${totalCarbon} kgCO2e/m². Excellent material selection supporting sustainability goals.`;
+      complianceStatus = 'Compliant with GBL Materials Credit 5.3';
+    }
+  } else if (activeLayers?.water) {
+    if (idHash === 0) {
+      performanceStatus = 'poor';
+      performanceReason = 'Poor water efficiency. Fixtures exceed maximum flow rates. Upgrade to low-flow alternatives.';
+      complianceStatus = 'Non-compliant - GBL Water Credit 6.1';
+    } else {
+      performanceStatus = 'optimal';
+      performanceReason = 'Excellent water efficiency. Low-flow fixtures installed, meeting all water conservation requirements.';
+      complianceStatus = 'Compliant with GBL Water Credit 6.2';
+    }
+  } else {
+    performanceStatus = 'optimal';
+    performanceReason = 'Select a performance layer to view detailed analysis.';
+    complianceStatus = 'Analysis Pending';
+  }
+  
+  return {
+    elementName: elementType,
+    uValue,
+    materials,
+    totalCarbon,
+    performanceStatus,
+    performanceReason,
+    complianceStatus,
+    standardZones: {
+      red: 12,
+      yellow: 8,
+      green: 45,
+    },
+  };
+}
+

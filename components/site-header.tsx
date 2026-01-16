@@ -52,13 +52,13 @@ export function SiteHeader() {
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       
-      <div className="flex w-full justify-between items-center gap-1 lg:gap-2 lg:px-6">
+      <div className="flex w-full justify-between items-center gap-1 lg:gap-2 lg:px-4">
 
       {/* Search */}
       <div className="flex items-center gap-2 relative w-full max-w-md">
-      <SidebarTrigger className=" mr-2" />
-      <InputGroup>
-        <InputGroupInput onClick={() => setOpen(true)} placeholder="Search for materials, standards, credits..." />
+      <SidebarTrigger/>
+      <InputGroup  onClick={() => setOpen(true)}>
+        <InputGroupInput placeholder="Search for materials, standards, credits..." />
         <InputGroupAddon>
           <Search />
         </InputGroupAddon>

@@ -10,7 +10,7 @@ The OmniBuild AI platform has been fully implemented with all four core features
 - Using modern IFC toolkit: `@thatopen/components`, `@thatopen/components-front`
 - Three.js 0.182.0 for 3D rendering
 - Next.js 15+ with App Router
-- Google Gemini 1.5 Pro via Vertex AI
+- Google DeepSeek V3.2 via Vertex AI
 - TailwindCSS + shadcn/ui for styling
 
 ## 🎯 Four Core Features
@@ -20,7 +20,7 @@ The OmniBuild AI platform has been fully implemented with all four core features
 
 **Implemented**:
 - Document upload component with drag-and-drop
-- Gemini 1.5 Pro document parsing
+- DeepSeek V3.2 document parsing
 - Extraction of materials, VOC, GWP, recycled content
 - Cross-reference with GBL/GBI/LEED/BREEAM standards
 - Compliance scorecard generation
@@ -61,7 +61,7 @@ The OmniBuild AI platform has been fully implemented with all four core features
 
 **Implemented**:
 - Chat interface with message history
-- Gemini 1.5 Pro conversational AI
+- DeepSeek V3.2 conversational AI
 - Context-aware recommendations
 - Suggestion card components
 - Impact analysis (high/medium/low)
@@ -124,7 +124,7 @@ OmniBuildAI/
 ├── src/
 │   ├── config/constants.ts      # ✅ App configuration
 │   └── lib/
-│       ├── ai/gemini.ts         # ✅ Gemini 1.5 Pro setup
+│       ├── ai/gemini.ts         # ✅ DeepSeek V3.2 setup
 │       └── db/index.ts          # Database utilities
 ├── components/ui/               # ✅ shadcn/ui components
 ├── .env.example                 # ✅ Environment template
@@ -287,7 +287,7 @@ GOOGLE_APPLICATION_CREDENTIALS=path/to/credentials.json
 ## 🙏 Credits
 
 - **Spec Design**: Based on China-ASEAN Smart City Competition requirements
-- **AI Model**: Google Gemini 1.5 Pro
+- **AI Model**: Google DeepSeek V3.2
 - **IFC Engine**: @thatopen/components team
 - **UI Components**: shadcn/ui + Radix UI
 - **Framework**: Next.js by Vercel

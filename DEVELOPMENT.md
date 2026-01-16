@@ -27,7 +27,7 @@
 - Dynamic import to avoid SSR issues
 
 ### 4. AI Integration (src/lib/ai/gemini.ts)
-- Gemini 1.5 Pro connection via Vertex AI
+- DeepSeek V3.2 connection via Vertex AI
 - Gemini Flash model for simpler tasks
 - Configured with appropriate temperature and token limits
 
@@ -68,7 +68,7 @@
 ### Architecture
 - **Frontend**: Next.js 15+ App Router
 - **3D**: @thatopen/components + Three.js (client-side rendering)
-- **AI**: Gemini 1.5 Pro (server actions)
+- **AI**: DeepSeek V3.2 (server actions)
 - **Styling**: TailwindCSS with dark mode support
 - **Type Safety**: Full TypeScript implementation
 

@@ -38,7 +38,7 @@ export function StandardSelector({ onStandardChange }: StandardSelectorProps) {
             className={cn(
              
               isActive
-                ? 'bg-emerald-600 text-white shadow-md'
+                ? 'bg-primary text-white shadow-md'
                 : 'bg-white text-gray-700 hover:bg-gray-50 border'
             )}
           >
@@ -46,7 +46,7 @@ export function StandardSelector({ onStandardChange }: StandardSelectorProps) {
             <span>{standard.name}</span>
             <span className={cn(
               'ml-1 font-semibold',
-              isActive ? 'text-white' : 'text-emerald-600'
+              isActive ? 'text-white' : 'text-primary'
             )}>
               {standard.score}%
             </span>

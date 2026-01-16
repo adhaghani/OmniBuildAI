@@ -78,7 +78,7 @@ export function ModelSelector({ onModelSelect }: ModelSelectorProps) {
             className="flex flex-col items-start gap-1 py-3"
           >
             <div className="flex items-center gap-2 font-medium">
-              <FileText className="h-4 w-4 text-emerald-600" />
+              <FileText className="h-4 w-4 text-primary" />
               {file.name}
             </div>
             <p className="text-xs text-muted-foreground">{file.description}</p>

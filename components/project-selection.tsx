@@ -11,6 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Button } from './ui/button'
 
 const ProjectSelection = () => {
   return (

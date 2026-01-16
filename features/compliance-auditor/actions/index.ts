@@ -3,7 +3,7 @@
 import type { ComplianceStandard, AuditResult, ComplianceScore } from '../types';
 
 /**
- * Analyzes uploaded documents using Gemini 1.5 Pro
+ * Analyzes uploaded documents using DeepSeek V3.2
  * Extracts relevant data for green building compliance auditing
  */
 export async function analyzeDocuments(
@@ -11,7 +11,7 @@ export async function analyzeDocuments(
   targetStandard: ComplianceStandard
 ): Promise<{ success: boolean; results?: AuditResult[]; error?: string }> {
   try {
-    // TODO: Implement Gemini 1.5 Pro document analysis
+    // TODO: Implement DeepSeek V3.2 document analysis
     // 1. Upload files to cloud storage
     // 2. Send to Gemini with RAG context about the target standard
     // 3. Extract relevant data (materials, specs, quantities)

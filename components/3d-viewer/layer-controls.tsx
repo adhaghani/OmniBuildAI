@@ -40,7 +40,7 @@ export function LayerControls({ onLayerChange, onOpacityChange }: LayerControlsP
     <Card className="w-80">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
-          <Layers className="h-4 w-4 text-emerald-600" />
+          <Layers className="h-4 w-4 text-primary" />
           Layer Controls
         </CardTitle>
       </CardHeader>
@@ -57,7 +57,7 @@ export function LayerControls({ onLayerChange, onOpacityChange }: LayerControlsP
               onClick={() => handleLayerToggle('thermal')}
               className={`
                 relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                ${layers.thermal ? 'bg-emerald-600' : 'bg-gray-300'}
+                ${layers.thermal ? 'bg-primary' : 'bg-gray-300'}
               `}
             >
               <span
@@ -79,7 +79,7 @@ export function LayerControls({ onLayerChange, onOpacityChange }: LayerControlsP
               onClick={() => handleLayerToggle('daylight')}
               className={`
                 relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                ${layers.daylight ? 'bg-emerald-600' : 'bg-gray-300'}
+                ${layers.daylight ? 'bg-primary' : 'bg-gray-300'}
               `}
             >
               <span
@@ -101,7 +101,7 @@ export function LayerControls({ onLayerChange, onOpacityChange }: LayerControlsP
               onClick={() => handleLayerToggle('carbon')}
               className={`
                 relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                ${layers.carbon ? 'bg-emerald-600' : 'bg-gray-300'}
+                ${layers.carbon ? 'bg-primary' : 'bg-gray-300'}
               `}
             >
               <span
@@ -123,7 +123,7 @@ export function LayerControls({ onLayerChange, onOpacityChange }: LayerControlsP
               onClick={() => handleLayerToggle('water')}
               className={`
                 relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                ${layers.water ? 'bg-emerald-600' : 'bg-gray-300'}
+                ${layers.water ? 'bg-primary' : 'bg-gray-300'}
               `}
             >
               <span
@@ -166,7 +166,7 @@ export function LayerControls({ onLayerChange, onOpacityChange }: LayerControlsP
             </div>
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Green Zones</span>
-              <span className="font-mono font-semibold text-emerald-600">45 areas</span>
+              <span className="font-mono font-semibold text-emerald-500">45 areas</span>
             </div>
           </div>
         </div>

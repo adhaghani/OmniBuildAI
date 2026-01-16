@@ -5,7 +5,7 @@ import type { StandardGap } from '../types';
 
 /**
  * Compares two green building standards and identifies requirements gaps
- * Uses Gemini 1.5 Pro to semantically map credits between standards
+ * Uses DeepSeek V3.2 to semantically map credits between standards
  */
 export async function compareStandards(
   projectId: string,

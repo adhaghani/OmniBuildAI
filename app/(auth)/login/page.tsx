@@ -44,7 +44,7 @@ export default function LoginPage() {
         <CardHeader className="space-y-1 text-center">
           <div className="flex justify-center mb-4">
             <Link href="/" className="flex items-center gap-2">
-              <Building2 className="h-8 w-8 text-emerald-600" />
+              <Building2 className="h-8 w-8 text-primary" />
               <span className="text-2xl font-bold">OmniBuild AI</span>
             </Link>
           </div>
@@ -74,7 +74,7 @@ export default function LoginPage() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <Link href="/forgot-password" className="text-sm text-emerald-600 hover:text-emerald-700">
+                <Link href="/forgot-password" className="text-sm text-primary hover:text-primary/80">
                   Forgot password?
                 </Link>
               </div>
@@ -139,7 +139,7 @@ export default function LoginPage() {
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-sm text-center text-muted-foreground">
             Don't have an account?{' '}
-            <Link href="/signup" className="text-emerald-600 hover:text-emerald-700 font-medium">
+            <Link href="/signup" className="text-primary hover:text-primary/80 font-medium">
               Sign up
             </Link>
           </div>
